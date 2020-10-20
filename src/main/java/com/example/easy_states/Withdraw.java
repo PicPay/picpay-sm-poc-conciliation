@@ -13,12 +13,16 @@ import org.jeasy.states.core.TransitionBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class Withdraw {
     private final FiniteStateMachine stateMachine;
+    private final UUID correlationId;
 
-    public Withdraw() {
+    public Withdraw(UUID correlationId) {
+        this.correlationId = correlationId;
         this.stateMachine = this.createStateMachine();
+
         System.out.println("Estado atual: " + this.stateMachine.getCurrentState().getName());
     }
 
@@ -68,7 +72,7 @@ public class Withdraw {
                 .name("stone_rejected")
                 .sourceState(intermediate)
                 .eventType(StoneHighValueEvent.class)
-                .eventHandler(new CancelWithdraw())
+                .eventHandler(new CancelWithdraw(this.correlationId))
                 .targetState(canceled)
                 .build();
 

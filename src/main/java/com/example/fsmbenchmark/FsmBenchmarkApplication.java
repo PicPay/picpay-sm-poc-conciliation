@@ -39,7 +39,7 @@ public class FsmBenchmarkApplication implements CommandLineRunner {
 	}
 
 	private void easyStateFsm() {
-		Withdraw withdraw = new Withdraw();
+		Withdraw withdraw = new Withdraw(UUID.randomUUID());
 		withdraw.startEvent(new StoneAnalyseCreditEvent());
 		withdraw.startEvent(new StoneHighValueEvent());
 	}
